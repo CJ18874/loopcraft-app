@@ -1,0 +1,24 @@
+{
+  "name": "LoopCraft - Layer-by-Layer Audio Looper",
+  "short_name": "LoopCraft",
+  "description": "Craft your sound with multi-layer looping, chord detection, and real-time mixing",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#2196F3",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%232196F3'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>�</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%232196F3'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>�</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["music", "utilities", "productivity"],
+  "screenshots": []
+}

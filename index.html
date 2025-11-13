@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2196F3">
+    <title>� LoopCraft - Craft Your Sound</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- WaveSurfer.js for waveform visualization -->
+    <script src="https://unpkg.com/wavesurfer.js@7"></script>
+    
+    <!-- Meyda.js for audio analysis (tempo, key, chords) -->
+    <script src="https://unpkg.com/meyda@5.6.0/dist/web/meyda.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel - Controls -->
+        <div class="control-panel">
+            <div class="header">
+                <h1>� LoopCraft</h1>
+                <p class="subtitle">Craft Your Sound, Layer by Layer</p>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="button-group">
+                <button id="recordBtn" class="btn btn-record">
+                    <span class="icon">🎤</span>
+                    Record Initial Loop
+                    <span id="recordTimer" class="timer"></span>
+                </button>
+
+                <button id="playPauseBtn" class="btn btn-play" disabled>
+                    <span class="icon">▶️</span>
+                    Play Loop
+                </button>
+
+                <button id="overdubBtn" class="btn btn-overdub" disabled>
+                    <span class="icon">➕</span>
+                    Overdub Layer
+                </button>
+
+                <button id="undoBtn" class="btn btn-undo" disabled>
+                    <span class="icon">↩️</span>
+                    Undo Last Layer
+                </button>
+
+                <button id="detectChordsBtn" class="btn btn-chords" style="display: none;">
+                    <span class="icon">🎼</span>
+                    Detect Chords
+                </button>
+
+                <button id="loadBtn" class="btn btn-load">
+                    <span class="icon">📂</span>
+                    Load Audio File
+                </button>
+                <input type="file" id="fileInput" accept="audio/*" style="display: none;">
+
+                <button id="clearBtn" class="btn btn-clear" disabled>
+                    <span class="icon">🗑️</span>
+                    Clear Loop
+                </button>
+            </div>
+
+            <!-- Status -->
+            <div class="status-section">
+                <div id="statusText" class="status">
+                    <span class="status-text">Ready to record!</span>
+                    <span class="recording-indicator" id="recordingIndicator" style="display: none;">
+                        <span class="recording-dot"></span>
+                        <span class="recording-text">REC</span>
+                    </span>
+                </div>
+                
+                <!-- Count-In Option -->
+                <div class="count-in-section">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="countInToggle" checked>
+                        <span>Count-in (1, 2, 3, 4)</span>
+                    </label>
+                </div>
+                
+                <!-- Metronome Option -->
+                <div class="metronome-section">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="metronomeToggle">
+                        <span>Metronome Click Track</span>
+                    </label>
+                    <div class="metronome-controls">
+                        <label class="bpm-label">
+                            <span>BPM:</span>
+                            <input type="number" id="metronomeBpm" value="120" min="40" max="240" step="1">
+                        </label>
+                        <label class="volume-label">
+                            <span>Volume:</span>
+                            <input type="range" id="metronomeVolume" value="50" min="0" max="100" step="1">
+                            <span id="metronomeVolumeValue">50%</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Loop Length Control -->
+                <div class="loop-length-section">
+                    <label class="loop-length-label">
+                        <span>Loop Length:</span>
+                        <input type="number" id="loopLength" value="5" min="1" max="60" step="1">
+                        <span>seconds</span>
+                    </label>
+                    <div class="loop-presets">
+                        <button class="preset-btn" data-seconds="2">2s</button>
+                        <button class="preset-btn" data-seconds="4">4s</button>
+                        <button class="preset-btn active" data-seconds="5">5s</button>
+                        <button class="preset-btn" data-seconds="8">8s</button>
+                        <button class="preset-btn" data-seconds="16">16s</button>
+                    </div>
+                </div>
+                
+                <!-- Layer Volume Controls -->
+                <div class="layers-section" id="layersSection" style="display: none;">
+                    <h3>🎚️ Layer Mix</h3>
+                    <div id="layersList" class="layers-list">
+                        <!-- Layers will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Musical Features -->
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="label">Tempo:</span>
+                        <span id="tempoValue">--</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="label">Key:</span>
+                        <span id="keyValue">--</span>
+                    </div>
+                </div>
+                
+                <!-- Scale Notes Display -->
+                <div class="scale-notes-section" id="scaleNotesSection" style="display: none;">
+                    <h3>🎹 Scale Notes</h3>
+                    <div id="scaleNotes" class="scale-notes">
+                        <!-- Scale notes will be added here dynamically -->
+                    </div>
+                </div>
+
+                <!-- Info -->
+                <div class="info">
+                    <p id="durationInfo">Duration: 5s</p>
+                    <p>Sample Rate: 44100Hz</p>
+                    <p>Channels: Mono</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Visualization -->
+        <div class="viz-panel">
+            <!-- Waveform -->
+            <div class="waveform-container">
+                <div class="waveform-wrapper">
+                    <div id="chordLabelsLayer" class="chord-labels-layer"></div>
+                    <div id="waveform"></div>
+                </div>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress-section">
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span class="separator">/</span>
+                    <span id="totalTime">0:00</span>
+                </div>
+                <div class="progress-bar-container">
+                    <input type="range" 
+                           id="progressSlider" 
+                           class="progress-slider" 
+                           min="0" 
+                           max="100" 
+                           value="0" 
+                           step="0.1">
+                    <div id="progressBar" class="progress-bar"></div>
+                    <div id="loopPositionMarker" class="loop-position-marker" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Chords Display -->
+            <div class="chords-container" style="display: none;">
+                <h3>Detected Chords</h3>
+                <div class="chords-content">
+                    <div id="chordsDisplay" class="chords-display">
+                        Load or record audio to detect chords
+                    </div>
+                    <div id="guitarDiagrams" class="guitar-diagrams">
+                        <!-- Guitar chord diagrams will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/guitar-chords.js"></script>
+    <script src="js/audio-analyzer.js"></script>
+    <script src="js/audio-recorder.js"></script>
+    <script src="js/audio-player.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
