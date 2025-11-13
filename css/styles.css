@@ -1,0 +1,1091 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    max-width: 1400px;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-height: 600px;
+}
+
+/* Control Panel */
+.control-panel {
+    width: 320px;
+    background: #f0f0f0;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn .icon {
+    font-size: 18px;
+}
+
+.btn-record {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+}
+
+.btn-record.recording {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.btn-play {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+}
+
+.btn-play.playing {
+    background: linear-gradient(135deg, #673AB7, #512DA8);
+    animation: playing-pulse 2s infinite;
+}
+
+@keyframes playing-pulse {
+    0%, 100% { box-shadow: 0 3px 10px rgba(255, 152, 0, 0.3); }
+    50% { box-shadow: 0 3px 15px rgba(103, 58, 183, 0.5); }
+}
+
+.btn-overdub {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+}
+
+.btn-undo {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+}
+
+.btn-chords {
+    background: linear-gradient(135deg, #00BCD4, #0097A7);
+}
+
+.btn-load {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+}
+
+.btn-clear {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+}
+
+.timer {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Status Section */
+.status-section {
+    margin-top: auto;
+}
+
+.status {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+    color: #2196F3;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.status-text {
+    flex: 1;
+}
+
+.recording-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff5f5;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #ffcdd2;
+}
+
+.recording-dot {
+    width: 10px;
+    height: 10px;
+    background: #f44336;
+    border-radius: 50%;
+    animation: recording-pulse 1.5s infinite;
+    box-shadow: 0 0 6px rgba(244, 67, 54, 0.6);
+}
+
+@keyframes recording-pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.2);
+    }
+}
+
+.recording-text {
+    font-size: 11px;
+    font-weight: 700;
+    color: #f44336;
+    letter-spacing: 0.5px;
+}
+
+.count-in-section {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.checkbox-label span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.metronome-section {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.metronome-controls {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bpm-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bpm-label span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    min-width: 40px;
+}
+
+.bpm-label input[type="number"] {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 70px;
+    text-align: center;
+}
+
+.volume-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-label span:first-child {
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    min-width: 40px;
+}
+
+.volume-label input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    accent-color: #667eea;
+}
+
+.volume-label span:last-child {
+    font-size: 13px;
+    color: #333;
+    min-width: 40px;
+    text-align: right;
+}
+
+.loop-length-section {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.loop-length-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.loop-length-label span:first-child {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.loop-length-label input[type="number"] {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 60px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.loop-length-label span:last-child {
+    font-size: 13px;
+    color: #666;
+}
+
+.loop-presets {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.preset-btn {
+    flex: 1;
+    min-width: 45px;
+    padding: 6px 10px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-1px);
+}
+
+.preset-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: #667eea;
+    color: white;
+}
+
+.preset-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.preset-btn:disabled:hover {
+    border-color: #ddd;
+    color: #666;
+}
+
+.loop-length-label input[type="number"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f5f5f5;
+}
+
+.layers-section {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.layers-section h3 {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.layers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.layer-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.layer-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 60px;
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+}
+
+.layer-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.layer-volume-slider {
+    flex: 1;
+    min-width: 60px;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.layer-volume-value {
+    min-width: 40px;
+    width: 40px;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 11px;
+    color: #333;
+    font-weight: 600;
+    background: white;
+    padding: 3px 4px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.layer-mute-btn {
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 48px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.layer-mute-btn:hover {
+    background: #f5f5f5;
+}
+
+.layer-mute-btn.muted {
+    background: #f44336;
+    color: white;
+    border-color: #f44336;
+}
+
+.scale-notes-section {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scale-notes-section h3 {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.scale-notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+}
+
+.scale-note {
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 35px;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+    transition: all 0.2s ease;
+}
+
+.scale-note:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+}
+
+.scale-note.root {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.scale-note.root:hover {
+    box-shadow: 0 4px 8px rgba(255, 152, 0, 0.4);
+}
+
+.features {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+.feature-item .label {
+    font-weight: 600;
+    color: #666;
+}
+
+.feature-item span:last-child {
+    color: #333;
+    font-weight: 500;
+}
+
+.info {
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* Visualization Panel */
+.viz-panel {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.waveform-container {
+    flex: 1;
+    background: #fafafa;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.waveform-container h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.waveform-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+#waveform {
+    width: 100%;
+    height: 100%;
+}
+
+/* Chord Labels Layer - Floating above waveform like Moises.ai */
+.chord-labels-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.chord-pill {
+    position: absolute;
+    top: 8px;
+    background: rgba(103, 58, 183, 0.9);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    transform: translateX(-50%);
+}
+
+.chord-pill:hover {
+    background: rgba(103, 58, 183, 1);
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(103, 58, 183, 0.4);
+}
+
+.chord-pill.active {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 4px 16px rgba(255, 152, 0, 0.5);
+    z-index: 11;
+}
+
+/* Chord Timeline Bar */
+.chord-timeline {
+    width: 100%;
+    height: 40px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    display: none; /* Hidden - using floating pills instead */
+}
+
+.chord-segment {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.chord-segment:hover {
+    filter: brightness(1.1);
+}
+
+.chord-segment.active {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.chord-segment-label {
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 8px;
+}
+
+/* Chord Overlay on Waveform */
+.chord-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    display: none; /* Hidden - using timeline bar instead */
+}
+
+.chord-marker {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-left: 2px solid rgba(103, 58, 183, 0.3);
+    border-right: 1px solid rgba(103, 58, 183, 0.2);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 5px;
+    transition: background-color 0.2s;
+    overflow: visible;
+}
+
+.chord-marker.active {
+    background-color: rgba(103, 58, 183, 0.15);
+    border-left-color: rgba(103, 58, 183, 0.8);
+    border-right-color: rgba(103, 58, 183, 0.4);
+    z-index: 11;
+}
+
+.chord-label {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    position: relative;
+    z-index: 12;
+    min-width: 30px;
+    text-align: center;
+}
+
+.chord-marker.active .chord-label {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    transform: scale(1.15);
+    box-shadow: 0 3px 12px rgba(103, 58, 183, 0.4);
+    z-index: 13;
+}
+
+/* Current Chord Display - Large indicator */
+.current-chord-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, rgba(103, 58, 183, 0.95), rgba(118, 75, 162, 0.95));
+    color: white;
+    padding: 20px 40px;
+    border-radius: 20px;
+    font-size: 48px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.current-chord-display.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Progress Section */
+.progress-section {
+    background: #fafafa;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.time-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.separator {
+    color: #999;
+    margin: 0 5px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: visible;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    transition: width 0.1s linear;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.loop-position-marker {
+    position: absolute;
+    top: -8px;
+    left: 0%;
+    width: 2px;
+    height: 24px;
+    background: #ff5722;
+    border-radius: 1px;
+    box-shadow: 0 0 4px rgba(255, 87, 34, 0.8);
+    z-index: 3;
+    transform: translateX(-1px);
+    transition: left 0.05s linear;
+}
+
+.progress-slider {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    margin: 0;
+    transform: translateY(-50%);
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 2;
+    display: none; /* Hidden by default until audio is loaded */
+}
+
+/* Slider Track - Chrome, Safari, Edge */
+.progress-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    background: transparent;
+    border-radius: 4px;
+}
+
+.progress-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    margin-top: -4px;
+}
+
+.progress-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Slider Track - Firefox */
+.progress-slider::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    background: transparent;
+    border-radius: 4px;
+}
+
+.progress-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.progress-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Focus styles */
+.progress-slider:focus {
+    outline: none;
+}
+
+.progress-slider:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.progress-slider:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+/* Chords Display */
+.chords-container {
+    background: #fafafa;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chords-container h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.chords-content {
+    display: flex;
+    gap: 20px;
+}
+
+.chords-display {
+    flex: 1;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 150px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+.guitar-diagrams {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-content: flex-start;
+}
+
+.chord-diagram {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.chord-diagram.active {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(245, 124, 0, 0.1));
+    border: 3px solid #FF9800;
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(255, 152, 0, 0.4);
+}
+
+.chord-diagram-title {
+    font-weight: 700;
+    font-size: 16px;
+    color: #667eea;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+.chord-diagram.active .chord-diagram-title {
+    color: #FF9800;
+    font-size: 18px;
+}
+
+.fretboard {
+    display: inline-block;
+    position: relative;
+}
+
+.fret-line {
+    stroke: #333;
+    stroke-width: 2;
+}
+
+.string-line {
+    stroke: #666;
+    stroke-width: 1.5;
+}
+
+.nut {
+    stroke: #000;
+    stroke-width: 4;
+}
+
+.finger-dot {
+    fill: #667eea;
+}
+
+.finger-number {
+    fill: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.muted-string {
+    fill: none;
+    stroke: #f44336;
+    stroke-width: 2;
+}
+
+.open-string {
+    fill: none;
+    stroke: #4CAF50;
+    stroke-width: 2;
+}
+
+.string-label {
+    font-size: 11px;
+    fill: #666;
+    text-anchor: middle;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .control-panel {
+        width: 100%;
+    }
+    
+    #waveform {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        border-radius: 15px;
+    }
+    
+    .control-panel {
+        padding: 20px 15px;
+    }
+    
+    .viz-panel {
+        padding: 20px 15px;
+    }
+    
+    .btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
+    #waveform {
+        height: 150px;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
